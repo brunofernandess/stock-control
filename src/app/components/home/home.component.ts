@@ -13,7 +13,8 @@ import { UserService } from './../../services/user/user.service';
 import { SignupUserResponse } from '../../models/interfaces/SignupUserResponse';
 import { SignupUserRequest } from '../../models/interfaces/user/SignupUserRequest';
 import { AuthRequest } from '../../models/interfaces/user/auth/AuthRequest';
-import { MessageService } from 'primeng/api';
+
+import { MessageService } from 'primeng/api'; // Add this import statement
 
 @Component({
   selector: 'app-home',
@@ -81,14 +82,14 @@ export class HomeComponent {
   }
 
   onSubmitSignupForm(): void {
-    // Verifica se o formulário de registro (signupForm) existe e se é válido
+    console.log('Form value:', this.signupForm.value);
+    console.log('Form valid:', this.signupForm.valid);
     if (this.signupForm.value && this.signupForm.valid) {
-      // Chama um serviço chamado UserService para realizar o registro do usuário
-      // O valor do formulário (signupForm.value) é passado como argumento para a função signupUser()
       this.UserService.signupUser(
         this.signupForm.value as SignupUserRequest
       ).subscribe({
         next: (response) => {
+          console.log('Response:', response);
           if (response) {
             this.signupForm.reset();
             this.loginCard = true;
@@ -101,13 +102,7 @@ export class HomeComponent {
           }
         },
         error: (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erro',
-            detail: 'Erro ao criar usuário!',
-            life: 2000,
-          });
-          console.log(err);
+          console.log('Error:', err);
         },
       });
     }
