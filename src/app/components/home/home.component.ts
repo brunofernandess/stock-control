@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 
-import { ToastModule } from 'primeng/toast';
+
 
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,8 +13,12 @@ import { UserService } from './../../services/user/user.service';
 import { SignupUserResponse } from '../../models/interfaces/SignupUserResponse';
 import { SignupUserRequest } from '../../models/interfaces/user/SignupUserRequest';
 import { AuthRequest } from '../../models/interfaces/user/auth/AuthRequest';
+import { ToastrService } from 'ngx-toastr';
+import { timeout } from 'rxjs';
 
-import { MessageService } from 'primeng/api'; // Add this import statement
+
+
+
 
 @Component({
   selector: 'app-home',
@@ -25,14 +29,15 @@ import { MessageService } from 'primeng/api'; // Add this import statement
     CardModule,
     InputTextModule,
     ButtonModule,
-    ToastModule,
+
   ],
-  providers: [BrowserAnimationsModule, CookieService, MessageService],
+  providers: [BrowserAnimationsModule, CookieService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   loginCard = true;
+  toaster = inject(ToastrService);
 
   loginForm = this.formBuilder.group({
     email: ['', Validators.required],
@@ -49,7 +54,7 @@ export class HomeComponent {
     private formBuilder: FormBuilder,
     private UserService: UserService,
     private cookieService: CookieService,
-    private messageService: MessageService
+
   ) {}
 
   onSubmitLoginForm(): void {
@@ -60,21 +65,12 @@ export class HomeComponent {
             this.cookieService.set('USER_INFO', response?.token);
             this.loginForm.reset();
 
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Sucesso',
-              detail: 'Bem-vindo de volta ${response.name}!',
-              life: 2000,
-            });
+
           }
         },
         error: (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erro',
-            detail: 'Erro ao fazer login!',
-            life: 2000,
-          });
+
+
           console.log(err);
         },
       });
@@ -85,26 +81,22 @@ export class HomeComponent {
     console.log('Form value:', this.signupForm.value);
     console.log('Form valid:', this.signupForm.valid);
     if (this.signupForm.value && this.signupForm.valid) {
-      this.UserService.signupUser(
-        this.signupForm.value as SignupUserRequest
-      ).subscribe({
+      this.UserService.signupUser(this.signupForm.value as SignupUserRequest).subscribe({
         next: (response) => {
-          console.log('Response:', response);
+          this.toaster.success('Usuário criado com sucesso!', 'Success')
+          timeout(2000);
+
+
           if (response) {
             this.signupForm.reset();
-            this.loginCard = true;
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Sucesso',
-              detail: 'Usuário criado com sucesso!',
-              life: 2000,
-            });
           }
         },
         error: (err) => {
-          console.log('Error:', err);
+         this.toaster.error('User creation failed', 'Error');
         },
       });
+        };
+
     }
-  }
-}
+
+  };
