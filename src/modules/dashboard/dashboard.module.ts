@@ -9,10 +9,11 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import{ToolbarModule} from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { timeout } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
+import { ChartModule } from 'primeng/chart';
 
 
 
@@ -30,6 +31,8 @@ import { CookieService } from 'ngx-cookie-service';
     ButtonModule,
     ToolbarModule,
     CardModule,
+    ToastrModule,
+    ChartModule,
 
   ],
 

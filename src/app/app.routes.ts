@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardHomeComponent } from '../modules/dashboard/page/dashboard-home/dashboard-home.component';
 import { AuthGuard } from './guards/auth-guard.service';
+
 export const routes: Routes = [
 {
   path: '',

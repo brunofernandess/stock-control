@@ -15,6 +15,7 @@ import { SignupUserRequest } from '../../models/interfaces/user/SignupUserReques
 import { AuthRequest } from '../../models/interfaces/user/auth/AuthRequest';
 import { ToastrService } from 'ngx-toastr';
 import { timeout } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 
@@ -54,6 +55,7 @@ export class HomeComponent {
     private formBuilder: FormBuilder,
     private UserService: UserService,
     private cookieService: CookieService,
+    private router: Router,
 
   ) {}
 
@@ -64,6 +66,9 @@ export class HomeComponent {
           if (response) {
             this.cookieService.set('USER_INFO', response?.token);
             this.loginForm.reset();
+            this.router.navigate(['/dashboard']);
+            this.toaster.success('Usuário autenticado com sucesso!', 'Success');
+            timeout(2000);
 
 
           }
@@ -85,6 +90,7 @@ export class HomeComponent {
         next: (response) => {
           this.toaster.success('Usuário criado com sucesso!', 'Success')
           timeout(2000);
+          this.loginCard = true;
 
 
           if (response) {
