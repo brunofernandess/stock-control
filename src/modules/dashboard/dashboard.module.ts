@@ -14,6 +14,8 @@ import { timeout } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
 import { ChartModule } from 'primeng/chart';
+import { SharedModule } from '../../app/shared/shared.module';
+import { ToolbarNavigationComponent } from '../../app/shared/componentshared/toolbar-navigation/toolbar-navigation.component';
 
 
 
@@ -33,6 +35,8 @@ import { ChartModule } from 'primeng/chart';
     CardModule,
     ToastrModule,
     ChartModule,
+    SharedModule,
+    ToolbarNavigationComponent
 
   ],
 

@@ -40,7 +40,7 @@
 
 
             ],
-            "scripts": ["../node_modules/chart.js/dist/chart.js"],
+            "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
