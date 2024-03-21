@@ -36,7 +36,9 @@ import { ToolbarNavigationComponent } from '../../app/shared/componentshared/too
     ToastrModule,
     ChartModule,
     SharedModule,
-    ToolbarNavigationComponent
+    ToolbarNavigationComponent,
+    ToastrModule,
+
 
   ],
 

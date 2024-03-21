@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
-import { Observable, map} from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { GetAllProductsResponse } from '../../models/interfaces/producs/response/GetAllProductsResponse';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class ProductsService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer $(this.JWT_TOKEN)',
+      Authorization: `Bearer ${this.JWT_TOKEN}`,
     }),
   };
 
@@ -23,12 +23,12 @@ export class ProductsService {
   constructor(
     private http: HttpClient,
     private cookie: CookieService,
-    ) { }
+    ) {}
 
     getAllProducts():Observable<Array<GetAllProductsResponse>>{
-      return this.http.get<Array<GetAllProductsResponse>>(`${this.API_URL}/products`, this.httpOptions);
-    }
+      return this.http.get<Array<GetAllProductsResponse>>(`${this.API_URL}/products`, this.httpOptions)
 
-    .pipe(
-      map((product) => product.file((data) => data?.amount > 0)));
+
+    .pipe(map((product) => product.filter((data) => data?.amount > 0)));
+};
 }
