@@ -39,6 +39,7 @@
       <!--REGISTER-->
       @if (loginCard == false) {
 
+
       <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignupForm()">
 
         <p-card styleClass="mt-10" header="Criar Conta" subheader="Crie já a sua conta!">
@@ -49,7 +50,8 @@
           </div>
 
           <div class="flex ustify-content-center align-content-center text-align-center">
-            <input type="email" pInputText placeholder="Email" formControlName="email">
+            <input type="email" pInputText placeholder="Email" required email formControlName="email">
+
           </div>
 
           <div class="flex ustify-content-center align-content-center text-align-center">

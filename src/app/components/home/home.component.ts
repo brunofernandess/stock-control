@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, NgModule, inject } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
@@ -31,8 +31,9 @@ import { Router } from '@angular/router';
     InputTextModule,
     ButtonModule,
 
+
   ],
-  providers: [BrowserAnimationsModule, CookieService],
+  providers: [BrowserAnimationsModule, CookieService, NgModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -41,14 +42,15 @@ export class HomeComponent {
   toaster = inject(ToastrService);
 
   loginForm = this.formBuilder.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required],
+    nome: ['', [Validators.required]],
+    email: ['', [Validators.required]],
+    password: ['', [Validators.required]],
   });
 
   signupForm = this.formBuilder.group({
     name: ['', Validators.required],
-    email: ['', Validators.required],
-    password: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   constructor(

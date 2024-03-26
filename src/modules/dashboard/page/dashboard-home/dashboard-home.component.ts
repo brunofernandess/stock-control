@@ -8,6 +8,7 @@ import { GetAllProductsResponse } from '../../../../app/models/interfaces/produc
 import { response } from 'express';
 
 import { ToastrService } from 'ngx-toastr';
+import { ProductsDataTransferService } from '../../../../app/shared/services/products/products-data-transfer.service';
 
 
 
@@ -33,6 +34,7 @@ export class DashboardHomeComponent implements OnInit {
     private productsService: ProductsService,
 
     private toaster: ToastrService,
+    private productsDtService: ProductsDataTransferService
 
 
   ) { }
@@ -46,8 +48,7 @@ export class DashboardHomeComponent implements OnInit {
       next: (response) => {
         if(response.length > 0){
           this.productsList = response;
-
-          console.log("DADOS DOS PRODUTOS", this.productsList);
+          this.productsDtService.setProductsDatas(this.productsList);
     }
   },
     error: (err) => {
