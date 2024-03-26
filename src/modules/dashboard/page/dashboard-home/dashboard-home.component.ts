@@ -1,7 +1,7 @@
 import { timeout } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { ProductsService } from './../../../../app/services/products/products.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToolbarNavigationComponent } from '../../../../app/shared/componentshared/toolbar-navigation/toolbar-navigation.component';
 import { ButtonModule } from 'primeng/button';
 import { GetAllProductsResponse } from '../../../../app/models/interfaces/producs/response/GetAllProductsResponse';
@@ -9,7 +9,8 @@ import { response } from 'express';
 
 import { ToastrService } from 'ngx-toastr';
 import { ProductsDataTransferService } from '../../../../app/shared/services/products/products-data-transfer.service';
-
+import{Subject} from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 
@@ -25,8 +26,8 @@ import { ProductsDataTransferService } from '../../../../app/shared/services/pro
   styleUrls: [],
 })
 
-export class DashboardHomeComponent implements OnInit {
-
+export class DashboardHomeComponent implements OnInit, OnDestroy {
+  private destroy$: Subject<void> = new Subject<void>();
   public productsList: Array<GetAllProductsResponse> = [];
 
 
@@ -44,7 +45,11 @@ export class DashboardHomeComponent implements OnInit {
   }
 
   getProductDatas(): void {
-    this.productsService.getAllProducts().subscribe({
+    this.productsService.getAllProducts()
+    .pipe(
+      takeUntil(this.destroy$),
+    )
+    .subscribe({
       next: (response) => {
         if(response.length > 0){
           this.productsList = response;
@@ -59,6 +64,12 @@ export class DashboardHomeComponent implements OnInit {
 
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+
   }
 
     };
