@@ -1,4 +1,4 @@
-import { Component, NgModule, OnDestroy, inject } from '@angular/core';
+import { Component, NgModule, OnDestroy, OnInit, inject } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
@@ -22,6 +22,8 @@ import { Subject, takeUntil } from 'rxjs';
 
 
 
+
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -31,6 +33,7 @@ import { Subject, takeUntil } from 'rxjs';
     CardModule,
     InputTextModule,
     ButtonModule,
+
 
 
   ],
@@ -44,7 +47,7 @@ export class HomeComponent implements OnDestroy {
   toaster = inject(ToastrService);
 
   loginForm = this.formBuilder.group({
-    nome: ['', [Validators.required]],
+
     email: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
@@ -65,11 +68,9 @@ export class HomeComponent implements OnDestroy {
 
   onSubmitLoginForm(): void {
     if (this.loginForm.value && this.loginForm.valid) {
-      this.UserService.authUser(this.loginForm.value as AuthRequest)
-      .pipe(
-        takeUntil(this.destroy$),
-      )
-      .subscribe({
+      this.UserService
+      .authUser(this.loginForm.value as AuthRequest)
+      .pipe(takeUntil(this.destroy$)).subscribe({
         next: (response) => {
           if (response) {
             this.cookieService.set('USER_INFO', response?.token);
@@ -96,7 +97,7 @@ export class HomeComponent implements OnDestroy {
     if (this.signupForm.value && this.signupForm.valid) {
       this.UserService.signupUser(this.signupForm.value as SignupUserRequest)
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntil((this.destroy$)),
       )
       .subscribe({
         next: (response) => {
