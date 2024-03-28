@@ -5,6 +5,9 @@ import { DashboardHomeComponent } from '../modules/dashboard/page/dashboard-home
 import { AuthGuard } from './guards/auth-guard.service';
 
 
+
+
+
 export const routes: Routes = [
 {
   path: '',
@@ -23,6 +26,14 @@ export const routes: Routes = [
   loadChildren: () => import('../modules/dashboard/dashboard.module').then(m => m.DashboardModule),
   canActivate: [AuthGuard]
 },
+
+
+
+
+{
+  path: 'products',
+  loadChildren: () => import('../modules/products/products.module').then(m => m.ProductsModule),
+  canActivate: [AuthGuard],
+},
+
 ];
-
-
