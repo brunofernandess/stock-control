@@ -8,6 +8,7 @@ import { Button, ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToolbarNavigationComponent } from './componentshared/toolbar-navigation/toolbar-navigation.component';
 import { PrimeIcons } from 'primeng/api';
+import { ProductsHomeComponent } from '../../modules/products/page/products-home/products-home.component';
 
 
 
@@ -22,6 +23,7 @@ import { PrimeIcons } from 'primeng/api';
     CardModule,
     ButtonModule,
     ToolbarNavigationComponent,
+    ProductsHomeComponent
 
 
   ],

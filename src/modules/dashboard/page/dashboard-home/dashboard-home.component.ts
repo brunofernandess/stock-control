@@ -14,7 +14,8 @@ import{Subject} from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ChartData, ChartOptions} from 'chart.js';
 import { CardModule,  } from 'primeng/card';
-
+import { ProductsHomeComponent } from '../../../products/page/products-home/products-home.component';
+import { Router } from '@angular/router';
 
 
 
@@ -26,7 +27,7 @@ import { CardModule,  } from 'primeng/card';
 @Component({
   selector: 'app-dashboard-home',
   standalone: true,
-  imports: [ToolbarNavigationComponent, ButtonModule, CardModule, ChartModule],
+  imports: [ToolbarNavigationComponent, ButtonModule, CardModule, ChartModule, ],
   templateUrl: './dashboard-home.component.html',
   styleUrls: [],
 })
@@ -46,10 +47,12 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
     private productsDtService: ProductsDataTransferService
 
 
+
   ) { }
 
 
   ngOnInit(): void {
+
     this.getProductDatas();
   }
 
@@ -66,11 +69,12 @@ export class DashboardHomeComponent implements OnInit, OnDestroy {
           this.setProductsChartConfig();
     }
   },
-    error: (err) => {
-      console.log(err);
-      this.toaster.success('Erro ao buscar produto!', 'Erro!')
-      timeout(2000);
 
+    error: (err) => {
+      if(err.status === 404){
+        this.toaster.error('Sessão expirada, faça login novamente!', 'Erro!')
+        timeout(2000);
+      }
 
       }
     });

@@ -16,6 +16,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ChartModule } from 'primeng/chart';
 import { SharedModule } from '../../app/shared/shared.module';
 import { ToolbarNavigationComponent } from '../../app/shared/componentshared/toolbar-navigation/toolbar-navigation.component';
+import { ProductsHomeComponent } from '../products/page/products-home/products-home.component';
 
 
 

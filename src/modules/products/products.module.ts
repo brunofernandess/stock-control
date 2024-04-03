@@ -1,5 +1,6 @@
 
 
+
 import {NgModule } from '@angular/core';
 import {CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,8 +19,12 @@ import {DropdownModule } from 'primeng/dropdown';
 import {ConfirmDialogModule } from 'primeng/confirmdialog';
 import {TooltipModule } from 'primeng/tooltip';
 import {ConfirmationService } from 'primeng/api';
-import {RouterModule } from '@angular/router';
+import { Router, RouterModule} from '@angular/router';
 import { PRODUCTS_ROUTES } from './products.routing';
+import { ProductsHomeComponent } from './page/products-home/products-home.component';
+
+
+
 
 
 
@@ -45,10 +50,16 @@ import { PRODUCTS_ROUTES } from './products.routing';
     DropdownModule,
     ConfirmDialogModule,
     TooltipModule,
+    ProductsHomeComponent,
+
+
+
+
+
 
 
 
   ],
-  providers: [DialogService, ConfirmationService]
+  providers: [DialogService, ConfirmationService, ]
 })
 export class ProductsModule { }

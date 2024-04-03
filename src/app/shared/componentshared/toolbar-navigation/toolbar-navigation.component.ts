@@ -7,6 +7,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 
 
 
+
 @Component({
   selector: 'toolbar-navigation',
   standalone: true,
@@ -24,4 +25,15 @@ export class ToolbarNavigationComponent {
     this.cookie.delete('USER_INFO');
     this.router.navigate(['/home']);
   }
+
+  redirectDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  redirectProducts() {
+    this.router.navigate(['/products']);
+  }
 }
+
+
+
