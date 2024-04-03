@@ -76,7 +76,7 @@ export class HomeComponent implements OnDestroy {
             this.cookieService.set('USER_INFO', response?.token);
             this.loginForm.reset();
             this.router.navigate(['/dashboard']);
-            this.toaster.success('Usuário autenticado com sucesso!', 'Success');
+            this.toaster.success('Usuário autenticado com sucesso!');
             timeout(2000);
 
 
@@ -101,7 +101,7 @@ export class HomeComponent implements OnDestroy {
       )
       .subscribe({
         next: (response) => {
-          this.toaster.success('Usuário criado com sucesso!', 'Success')
+          this.toaster.success('Usuário criado com sucesso!')
           timeout(2000);
           this.loginCard = true;
 

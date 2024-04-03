@@ -8,7 +8,7 @@ import { GetAllProductsResponse } from '../../../../app/models/interfaces/produc
 import { SharedModule } from '../../../../app/shared/shared.module';
 import { takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-
+import { ProductsTableComponent } from '../../components/products-table/products-table.component';
 import { timeout } from 'rxjs';
 
 
@@ -17,7 +17,7 @@ import { timeout } from 'rxjs';
 @Component({
   selector: 'products-home',
   standalone: true,
-  imports: [ToolbarNavigationComponent, RouterModule, SharedModule,],
+  imports: [ToolbarNavigationComponent, RouterModule, SharedModule, ProductsTableComponent],
   templateUrl: './products-home.component.html',
   styleUrls: [],
 
@@ -45,12 +45,12 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
 
     if  (productsLoaded.length > 0) {
       this.productDatas = productsLoaded;
+      console.log("DADOS DE PRODUTOS", this.productDatas);
     } else this.getAPIProductsDatas();
 
-    console.log("DADOS DE PRODUTOS", this.productDatas);
 
+  }
 
-    }
   getAPIProductsDatas() {
     this.productsService
     .getAllProducts()
@@ -59,13 +59,13 @@ export class ProductsHomeComponent implements OnInit, OnDestroy {
       next:(response) => {
         if(response.length > 0) {
           this.productDatas = response;
-          this.productsDtService.setProductsDatas(response);
+          /*this.productsDtService.setProductsDatas(response);*/
           console.log("DADOS DE PRODUTOS", this.productDatas);
         }
       },
       error: (error) => {
-      console.log(error);
-        this.router.navigate(['/dashboard']);
+        console.log(error);
+
       }
     });
   }
